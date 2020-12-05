@@ -39,9 +39,28 @@ def Greedy_search(board, opt):
     heappush(priority_queue, (h_score, board.get_initial_state()))
 
     # FILL IN YOUR CODE HERE
-
-
-    return 
+    node_relations =list()
+    while len(priority_queue) > 0:
+        _,current_node = heappop(priority_queue)
+        if board.goal_test(current_node):
+            path = [current_node]
+            while current_node != board.initial_state:
+                for  node_relation in node_relations:
+                    if current_node == node_relation[1]:
+                        current_node = node_relation[0]
+                        path.append(current_node)
+                        break
+            path = path[::-1]
+            for i in path: print_puzzle(i)
+            break
+        else:
+            possible_moves = get_possible_moves(current_node,board)
+            for node in possible_moves:
+                if opt ==1 : h_score = get_manhattan_distance(node)
+                if opt ==2 : h_score = no_of_misplaced_tiles(node)
+                heappush(priority_queue, (h_score, node))
+                node_relations.append([current_node,node])
+    return path
 
 
 if __name__ == '__main__':       
