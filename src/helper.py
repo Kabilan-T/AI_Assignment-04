@@ -109,6 +109,7 @@ def print_puzzle(puzzle):
             print("  ", val)
         else:
             print("  ", val, end="")
+    print("-"*15)
 
     return
 
@@ -118,16 +119,19 @@ def move_left(position):
 
     Parameters
     ----------
-    position : [type]
-        [description]
+    position : list
+        current configuration of the puzzle
 
     Returns
     -------
-    [type]
-        [description]
+    list
+        puzzle configuration after moving '0' to left
     """
 
-    raise NotImplementedError
+    moved_position = position[:]
+    idx = position.index(0)
+    moved_position[idx],moved_position[idx-1]=position[idx-1],position[idx]
+    return moved_position
 
 
 def move_right(position):
@@ -135,16 +139,20 @@ def move_right(position):
 
     Parameters
     ----------
-    position : [type]
-        [description]
+    position : list
+        current configuration of the puzzle
 
     Returns
     -------
-    [type]
-        [description]
+    list
+        puzzle configuration after moving '0' to right
     """
 
-    raise NotImplementedError
+    moved_position = position[:]
+    idx = position.index(0)
+    moved_position[idx]=position[idx+1]
+    moved_position[idx+1]=position[idx]
+    return moved_position
 
 
 def move_up(position):
@@ -152,16 +160,19 @@ def move_up(position):
 
     Parameters
     ----------
-    position : [type]
-        [description]
+    position : list
+        current configuration of the puzzle
 
     Returns
     -------
-    [type]
-        [description]
+    list
+        puzzle configuration after moving '0' to up
     """
 
-    raise NotImplementedError
+    moved_position = position[:]
+    idx = position.index(0)
+    moved_position[idx],moved_position[idx-ROW_SIZE]=position[idx-ROW_SIZE],position[idx]
+    return moved_position
 
 
 def move_down(position):
@@ -169,16 +180,19 @@ def move_down(position):
 
     Parameters
     ----------
-    position : [type]
-        [description]
+    position : list
+        current configuration of the puzzle
 
     Returns
     -------
-    [type]
-        [description]
+    list
+        puzzle configuration after moving '0' to down
     """
 
-    raise NotImplementedError
+    moved_position = position[:]
+    idx = position.index(0)
+    moved_position[idx],moved_position[idx+ROW_SIZE]=position[idx+ROW_SIZE],position[idx]
+    return moved_position
 
 
 def get_possible_moves(node, board):
@@ -187,15 +201,15 @@ def get_possible_moves(node, board):
 
     Parameters
     ----------
-    node : [type]
-        [description]
-    board : [type]
-        [description]
+    node : list
+        current configuration of the puzzle
+    board : Puzzle (user defined class)
+        currrent puzzle object
 
     Return
     ------
-    [type]
-        [description]
+    list
+        list of possible movements from current node
     """
 
     possible_moves = []
@@ -206,8 +220,15 @@ def get_possible_moves(node, board):
     # For Eg: A-star uses f_score as priority while greedy search
     # uses h_score as priority
 
-
-    raise NotImplementedError
+    board.explored_states.append(node)
+    moves = []
+    idx = node.index(0)
+    if idx%ROW_SIZE >0:     moves.append(move_left(node))
+    if idx%ROW_SIZE <2:     moves.append(move_right(node))
+    if idx//ROW_SIZE >0:    moves.append(move_up(node))
+    if idx//ROW_SIZE <2:    moves.append(move_down(node))
+    possible_moves = [move for move in moves if not board.is_explored(move)]
+    return possible_moves
 
 
 def no_of_misplaced_tiles(node):
@@ -216,16 +237,19 @@ def no_of_misplaced_tiles(node):
 
     Parameters
     ----------
-    node : [type]
-        [description]
+    node : list
+        current configuration of the puzzle
 
     Return
     ------
-    [type]
-        [description]
+    int
+        number of misplaced tiles
     """
-
-    raise NotImplementedError
+    misplaced_tiles_count = 0
+    for i in range(0, PUZZLE_TYPE + 1):
+        if node[i]!=i:
+            misplaced_tiles_count+=1
+    return misplaced_tiles_count
 
 
 def misplaced_tile_heuristic(nodes, possible_moves):
@@ -253,16 +277,22 @@ def get_manhattan_distance(node):
 
     Parameters
     ----------
-    node : [type]
-        [description]
+    node : list
+        current configuration of the puzzle
 
     Return
     ------
-    [type]
-        [description]
+    int
+        manhattan distance for current configuration
     """
-
-    raise NotImplementedError
+    manhattan_distance = 0
+    for i in range(0, PUZZLE_TYPE + 1):
+        if node[i]!=i:
+            idx_1, idx_2 = i, node[i]
+            x1, y1 = idx_1//ROW_SIZE, idx_1%ROW_SIZE,
+            x2, y2 = idx_2//ROW_SIZE, idx_2%ROW_SIZE
+            manhattan_distance += abs((x2-x1))+abs((y2-y1))
+    return manhattan_distance
 
 
 def manhattan_distance_heuristic(nodes, possible_moves):
