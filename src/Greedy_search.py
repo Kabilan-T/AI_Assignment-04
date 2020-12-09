@@ -15,21 +15,18 @@ from helper import *
 
 def Greedy_search(board, opt):
     """Function to implement the Greedy search algorithm.
-    Please use the functions in helper.py to complete the algorithm.
-    Please do not clutter the code this file by adding extra functions.
-    Additional functions if required should be added in helper.py
 
     Parameters
     ----------
-    board : [type]
-        [description]
-    opt : [type]
-        [description]
+    board : Puzzle
+        object of class Puzzle which contains the puzzle configuration
+    opt : int
+        1 for Manhattan Dist heuristic, 2 for Misplaced Tiles heuristic
 
     Returns
     -------
-    [type]
-        [description]
+    Sequence[int]
+        path from unsolved puzzle to solved puzzle
     """
 
     priority_queue = []
@@ -39,7 +36,7 @@ def Greedy_search(board, opt):
     heappush(priority_queue, (h_score, board.get_initial_state()))
 
     # FILL IN YOUR CODE HERE
-    node_relations =list()
+    node_relations =list([("", board.get_initial_state())])
     while len(priority_queue) > 0:
         _,current_node = heappop(priority_queue)
         if board.goal_test(current_node):
@@ -60,7 +57,7 @@ def Greedy_search(board, opt):
                 if opt ==1 : h_score = get_manhattan_distance(node)
                 if opt ==2 : h_score = no_of_misplaced_tiles(node)
                 heappush(priority_queue, (h_score, node))
-                node_relations.append([current_node,node])
+                node_relations.append((current_node,node))
     return path
 
 
