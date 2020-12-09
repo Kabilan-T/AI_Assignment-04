@@ -62,11 +62,26 @@ def Greedy_search(board, opt):
 
 
 if __name__ == '__main__':       
-    puzzle_8 = [0, 1, 2, 3, 4, 5, 8, 6, 7] # Initial Configuration for testing
-    # puzzle_8 = [8, 7, 6, 5, 1, 4, 2, 0, 3] # Second Configuration for testing
-    # puzzle_8 = [1, 5, 7, 3, 6, 2, 0, 4, 8] # Final Configuration for testing
+    puzzle1 = [0, 1, 2, 3, 4, 5, 8, 6, 7] # Initial Configuration for testing
+    puzzle2 = [8, 7, 6, 5, 1, 4, 2, 0, 3] # Second Configuration for testing
+    puzzle3 = [1, 5, 7, 3, 6, 2, 0, 4, 8] # Final Configuration for testing
 
-    print("Initial Configuration")
+    print("First configuration of puzzle")
+    print_puzzle(puzzle1)
+    print("Second configuration of puzzle")
+    print_puzzle(puzzle2)
+    print("Third configuration of puzzle")
+    print_puzzle(puzzle3)
+
+    puzzle_opt = int(input("Enter which configuration of puzzle to run (1 or 2 or 3 ) : "))
+    if   puzzle_opt == 1 : puzzle_8 = puzzle1
+    elif puzzle_opt == 2 : puzzle_8 = puzzle2
+    elif puzzle_opt == 3 : puzzle_8 = puzzle3
+    else : 
+        print("Invalid Choice")
+        sys. exit()
+        
+    print("\nSelected Configuration")
     board = Puzzle(puzzle_8)
     print_puzzle(puzzle_8)
     opt = int(sys.argv[1])
