@@ -90,5 +90,6 @@ Running A star search with Misplaced Tiles heuristic
    3   4   5
    6   7   8
 ---------------
-No. of moves made:  17
-Time: 0.11464704199897824s
+Path cost :  17
+No. of visited nodes :  1397
+Time: 0.06638683799974388s
