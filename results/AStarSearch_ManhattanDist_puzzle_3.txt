@@ -82,6 +82,6 @@ Running A star search with Manhattan Dist heuristic
    3   4   5
    6   7   8
 ---------------
-Path cost :  15
-No. of visited nodes :  145
-Time: 0.005291168999974616s
+Path cost :  14
+No. of visited nodes :  101
+Time: 0.0031376449987874366s

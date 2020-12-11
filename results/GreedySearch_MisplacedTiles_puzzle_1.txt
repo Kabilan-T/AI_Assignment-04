@@ -178,6 +178,6 @@ Running Greedy search with Misplaced Tiles heuristic
    3   4   5
    6   7   8
 ---------------
-Path cost :  39
+Path cost :  38
 No. of visited nodes :  499
-Time: 0.025123793002421735s
+Time: 0.03580048900039401s

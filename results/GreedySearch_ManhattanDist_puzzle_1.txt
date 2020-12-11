@@ -90,6 +90,6 @@ Running Greedy search with Manhattan Dist heuristic
    3   4   5
    6   7   8
 ---------------
-Path cost :  17
+Path cost :  16
 No. of visited nodes :  263
-Time: 0.012786647999746492s
+Time: 0.01398388000234263s
