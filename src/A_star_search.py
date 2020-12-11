@@ -40,12 +40,12 @@ def Astar_search(board, opt):
 
     # Creating a heap from list to store the nodes with the priority h_score
     depth = 0
-    heappush(priority_queue, (f_score, g_score, h_score, board.get_initial_state(),depth))
+    heappush(priority_queue, (f_score, g_score, h_score, board.get_initial_state()))
 
     # FILL IN YOUR CODE HERE
     node_relations =list([("", board.get_initial_state())])
     while len(priority_queue) > 0:
-        _,_,_,current_node,depth = heappop(priority_queue) 
+        _,depth,_,current_node = heappop(priority_queue) 
         if board.goal_test(current_node):
             path = [current_node]
             while current_node != board.initial_state:
@@ -59,12 +59,12 @@ def Astar_search(board, opt):
             break
         else:
             possible_moves = get_possible_moves(current_node,board)
-            g_score = depth
+            g_score = depth + 1
             for node in possible_moves:
                 if opt ==1 : h_score = get_manhattan_distance(node)
                 if opt ==2 : h_score = no_of_misplaced_tiles(node)
                 f_score = g_score + h_score
-                heappush(priority_queue, (f_score, g_score, h_score, node, depth+1))
+                heappush(priority_queue, (f_score, g_score, h_score, node))
                 node_relations.append((current_node,node))
     print("Path cost : ",len(path))
     print("No. of visited nodes : ",len(board.explored_states))
@@ -94,7 +94,8 @@ if __name__ == '__main__':
     print("\nSelected Configuration")
     board = Puzzle(puzzle_8)
     print_puzzle(puzzle_8)
-    opt = int(sys.argv[1])
+    #opt = int(sys.argv[1])
+    opt =1
 
     if opt == 1 or opt == 2:
 
