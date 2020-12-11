@@ -56,6 +56,7 @@ def Astar_search(board, opt):
                         break
             path = path[::-1]
             for i in path: print_puzzle(i)
+            print("Path cost : ",depth)
             break
         else:
             possible_moves = get_possible_moves(current_node,board)
@@ -66,7 +67,6 @@ def Astar_search(board, opt):
                 f_score = g_score + h_score
                 heappush(priority_queue, (f_score, g_score, h_score, node))
                 node_relations.append((current_node,node))
-    print("Path cost : ",len(path))
     print("No. of visited nodes : ",len(board.explored_states))
     return path
 
@@ -94,8 +94,7 @@ if __name__ == '__main__':
     print("\nSelected Configuration")
     board = Puzzle(puzzle_8)
     print_puzzle(puzzle_8)
-    #opt = int(sys.argv[1])
-    opt =1
+    opt = int(sys.argv[1])
 
     if opt == 1 or opt == 2:
 

@@ -53,6 +53,7 @@ def Greedy_search(board, opt):
                         break
             path = path[::-1]
             for i in path: print_puzzle(i)
+            print("Path cost : ",depth)
             break
         else:
             possible_moves = get_possible_moves(current_node,board)
@@ -61,7 +62,6 @@ def Greedy_search(board, opt):
                 if opt ==2 : h_score = no_of_misplaced_tiles(node)
                 heappush(priority_queue, (h_score, node))
                 node_relations.append((current_node,node))
-    print("Path cost : ",len(path))
     print("No. of visited nodes : ",len(board.explored_states))
     return path
 
