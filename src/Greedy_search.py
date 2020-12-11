@@ -53,7 +53,7 @@ def Greedy_search(board, opt):
                         break
             path = path[::-1]
             for i in path: print_puzzle(i)
-            print("Path cost : ",depth)
+            print("Path cost : ",len(path)-1)
             break
         else:
             possible_moves = get_possible_moves(current_node,board)
